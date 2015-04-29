@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+    <style>
+        .lightgray {color: #999;}
+        .large {font-size: x-large;}
+        .underline {text-decoration: underline;}
+    </style>
+</head>
+<body>
+    <p ng-class="'lightgray'">lightgray</p>
+    <p ng-class="'large'">large</p>
+    <p ng-class="'underline'">underline</p>
+    <p ng-class="'lightgray large underline'">all</p>
+
+    <hr/>
+
+    <p ng-init="mdlLightgray='lightgray'; mdlLarge='large'; mdlUnderline='underline';">配列指定</p>
+    <p ng-class="[mdlLightgray]">lightgray</p>
+    <p ng-class="[mdlLarge]">large</p>
+    <p ng-class="[mdlUnderline]">underline</p>
+    <p ng-class="['lightgray', 'large', 'underline']">all</p>
+
+    <hr/>
+
+    <p ng-class="{
+        lightgray: chkLightgray,
+        large: chkLarge,
+        underline: chkUnderline
+    }">オブジェクト指定<p>
+    <input type="checkbox" ng-model="chkLightgray"> lightgray<br>
+    <input type="checkbox" ng-model="chkLarge"> large<br>
+    <input type="checkbox" ng-model="chkUnderline"> underline<br>
+
+</body>
+</html> 

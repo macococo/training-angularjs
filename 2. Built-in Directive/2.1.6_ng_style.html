@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+    <p ng-style="myStyle">Sample Text</p>
+    <input type="radio" name="radio" ng-click="myStyle={textDecoration: 'overline'}"> overline<br/>
+    <input type="radio" name="radio" ng-click="myStyle={textDecoration: 'line-through'}"> line-through'<br/>
+    <input type="radio" name="radio" ng-click="myStyle={textDecoration: 'underline'}"> underline<br/>
+</body>
+</html> 

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+    <style>
+        .large {font-size: x-large;}
+    </style>
+</head>
+<body>
+
+    <ul ng-init="list=['a', 'b', 'c']">
+        <li ng-repeat="item in list" ng-class-even="'large'">{{item}}</li>
+    </ul>
+
+</body>
+</html> 

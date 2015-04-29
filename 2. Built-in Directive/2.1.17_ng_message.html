@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-messages.min.js"></script>
+    <style>
+        .even {background-color: #f0f;}
+        .odd {background-color: #0ff;}
+    </style>
+</head>
+<body ng-controller="myController">
+
+    <div ng-messages="messages">
+        <div ng-message="200">OK</div>
+        <div ng-message="500">Internal Server Error</div>
+    </div>
+
+    <script>
+        angular.module('myApp', ['ngMessages'])
+            .controller('myController', function($scope) {
+                $scope.messages = {
+                    '200': false,
+                    '500': true
+                };
+            });
+    </script>
+
+</body>
+</html> 

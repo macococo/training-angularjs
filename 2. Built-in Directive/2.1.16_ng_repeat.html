@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+    <style>
+        .even {background-color: #f0f;}
+        .odd {background-color: #0ff;}
+    </style>
+</head>
+<body>
+
+    <ul ng-init="list=['a', 'b', 'c']">
+        <li ng-repeat="item in list" ng-class="{'even': $even, 'odd': $odd}">
+            value: {{item}}<br/>
+            $index: {{$index}}<br/>
+            $first: {{$first}}<br/>
+            $middle: {{$middle}}<br/>
+            $last: {{$last}}<br/>
+            $even: {{$even}}<br/>
+            $odd: {{$odd}}<br/>
+        </li>
+    </ul>
+
+</body>
+</html> 

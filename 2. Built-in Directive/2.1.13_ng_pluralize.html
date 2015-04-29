@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+    <input type="number" ng-model="myCount" ng-init="myCount=0">
+    <p ng-pluralize count="myCount" when="{
+        '0': '0名',
+        '1': '1名',
+        '2': '2名',
+        'other': '{}名以上',
+    }"></p>
+</body>
+</html> 

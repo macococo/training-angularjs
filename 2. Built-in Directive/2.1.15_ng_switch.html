@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+    <input type="radio" ng-model="type" value="a"> a
+    <input type="radio" ng-model="type" value="b"> b
+    <input type="radio" ng-model="type" value="c"> c
+
+    <ng-switch on="type">
+        <p ng-switch-when="a">a を選択</p>
+        <p ng-switch-when="b">b を選択</p>
+        <p ng-switch-when="c">c を選択</p>
+        <p ng-switch-default>選択してください</p>
+    </ng-switch>
+</body>
+</html> 
