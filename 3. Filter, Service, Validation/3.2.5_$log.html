@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="controller">
+        <textarea ng-model="logtext"></textarea>
+
+        <input type="button" ng-click="debug();" value="debug">
+        <input type="button" ng-click="error();" value="error">
+        <input type="button" ng-click="info();" value="info">
+        <input type="button" ng-click="log();" value="log">
+        <input type="button" ng-click="warn();" value="warn">
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('controller', ['$scope', '$log', function($scope, $log) {
+                $scope.logtext = 'test';
+                
+                $scope.debug = function() {
+                    $log.debug($scope.logtext);
+                }
+                $scope.error = function() {
+                    $log.error($scope.logtext);
+                }
+                $scope.info = function() {
+                    $log.info($scope.logtext);
+                }
+                $scope.log = function() {
+                    $log.log($scope.logtext);
+                }
+                $scope.warn = function() {
+                    $log.warn($scope.logtext);
+                };
+            }]);
+    </script>
+
+</body>
+</html> 

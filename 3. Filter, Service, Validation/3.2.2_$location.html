@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="controller1">
+        {{ location.absUrl() }}<br>
+        {{ location.protocol() }}<br>
+        {{ location.port() }}<br>
+        {{ location.host() }}<br>
+        {{ location.path() }}<br>
+        {{ location.search() }}<br>
+        {{ location.hash() }}<br>
+        {{ location.url() }}<br>
+
+        <input type="text" ng-model="path">
+        <input type="button" ng-click="changePath();" value="change path"><br>
+
+        <input type="text" ng-model="searchName">
+        <input type="text" ng-model="searchValue">
+        <input type="button" ng-click="changeSearch();" value="change search"><br>
+
+        <input type="text" ng-model="hash">
+        <input type="button" ng-click="changeHash();" value="change hash"><br>
+
+        <input type="text" ng-model="url">
+        <input type="button" ng-click="changeUrl();" value="change url"><br>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('controller1', ['$scope', '$location', function($scope, $location) {
+                $scope.path = '/path/to/path';
+                $scope.searchName = 'new';
+                $scope.searchValue = 'y';
+                $scope.hash = 'new';
+                $scope.url = '/path/to/path?new=y#new';
+                $scope.location = $location;
+                $scope.changePath = function() {
+                    $location.path($scope.path);
+                }
+                $scope.changeSearch = function() {
+                    $location.search($scope.searchName, $scope.searchValue);
+                }
+                $scope.changeHash = function() {
+                    $location.hash($scope.hash);
+                }
+                $scope.changeUrl = function() {
+                    $location.url($scope.url);
+                }
+            }]);
+    </script>
+
+</body>
+</html> 

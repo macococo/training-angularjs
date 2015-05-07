@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="controller1">
+        {{ name }}<br>
+        {{ rootName }} <!-- controller2 -->
+    </div>
+
+    <div ng-controller="controller2">
+        {{ name }}<br>
+        {{ rootName }}
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('controller1', ['$rootScope', '$scope', function($rootScope, $scope) {
+                $scope.name = 'controller1';
+                $rootScope.rootName = 'controller1';
+            }])
+            .controller('controller2', ['$rootScope', '$scope', function($rootScope, $scope) {
+                $scope.name = 'controller2';
+                $rootScope.rootName = 'controller2';
+            }]);
+    </script>
+
+</body>
+</html> 

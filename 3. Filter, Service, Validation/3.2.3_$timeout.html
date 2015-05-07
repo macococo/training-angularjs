@@ -1,0 +1,24 @@
+<html lang="ja" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="controller">
+        {{ count }}<br>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('controller', ['$scope', '$timeout', function($scope, $timeout) {
+                $scope.count = 0;
+
+                $timeout(function() {
+                    $scope.count++;
+                }, 1000);
+            }]);
+    </script>
+
+</body>
+</html> 

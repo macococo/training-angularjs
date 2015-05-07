@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-cookies.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="controller">
+        <input type="text" ng-model="name">
+        <input type="text" ng-model="value"><br>
+
+        {{ cookies | json }}<br>
+
+        <input type="button" ng-click="put();" value="put">
+        <input type="button" ng-click="remove();" value="remove">
+    </div>
+
+    <script>
+        angular.module('myApp', ['ngCookies'])
+            .controller('controller', ['$scope', '$cookies', '$cookieStore', function($scope, $cookies, $cookieStore) {
+                $scope.name = 'test';
+                $scope.value = 'change';
+                $scope.cookies = $cookies;
+
+                $scope.put = function() {
+                    $cookieStore.put($scope.name, $scope.value);
+                    console.log($cookieStore.get($scope.name));
+                }
+                $scope.remove = function() {
+                    $cookieStore.remove($scope.name);
+                }
+            }]);
+    </script>
+
+</body>
+</html> 

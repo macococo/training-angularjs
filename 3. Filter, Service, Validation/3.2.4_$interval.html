@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="controller">
+        {{ count }}<br>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('controller', ['$scope', '$interval', function($scope, $interval) {
+                $scope.count = 0;
+
+                $interval(function() {
+                    $scope.count++;
+                }, 1000);
+            }]);
+    </script>
+
+</body>
+</html> 

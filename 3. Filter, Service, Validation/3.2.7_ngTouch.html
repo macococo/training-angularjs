@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-touch.min.js"></script>
+</head>
+<body ng-controller="controller">
+
+    <div id="area" style="width: 400px; height: 400px; background-color: #ddd;">
+    </div>
+
+    <script>
+        angular.module('myApp', ['ngTouch'])
+            .controller('controller', ['$scope', '$swipe', function($scope, $swipe) {
+                $swipe.bind(angular.element(document.getElementById('area')), {
+                    start: function(obj, event) {
+                        console.log('start');
+                        console.log(event.type);
+                        console.log(obj);
+                    },
+                    move: function(obj, event) {
+                        console.log('move');
+                        console.log(event.type);
+                        console.log(obj);
+                    },
+                    cancel: function(event) {
+                        console.log('cancel');
+                        console.log(event.type);
+                    },
+                    end: function(obj, event) {
+                        console.log('end');
+                        console.log(event.type);
+                        console.log(obj);
+                    }
+                });
+            }]);
+    </script>
+
+</body>
+</html> 
