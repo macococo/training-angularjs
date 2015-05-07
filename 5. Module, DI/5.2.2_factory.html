@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body ng-controller="controller">
+
+    <input type="button" ng-click="exec();" value="alert">
+
+    <script>
+        angular.module('myApp', [])
+            .config([function() {
+                alert('config');
+            }])
+            .run([function() {
+                alert('run');
+            }])
+            .factory('Service', ['$timeout', function($timeout) {
+                return {
+                    exec: function() {
+                        $timeout(function() {
+                            alert('exec');
+                        }, 1000);
+                    }
+                }
+            }])
+            .controller('controller', ['$scope', 'Service', function($scope, Service) {
+                $scope.exec = function() {
+                    Service.exec();   
+                };
+            }]);
+    </script>
+
+</body>
+</html> 
