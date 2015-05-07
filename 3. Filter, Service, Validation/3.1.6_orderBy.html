@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-locale_ja-jp.js"></script>
+</head>
+<body ng-init="array=[{name: 'b'}, {name: 'c'}, {name: 'a'}]">
+
+    <ul>
+        <li ng-repeat="obj in array | orderBy:'name'">
+            {{obj.name}}
+        </li>
+    </ul>
+    <ul>
+        <li ng-repeat="obj in array | orderBy:'name':true">
+            {{obj.name}}
+        </li>
+    </ul>
+
+</body>
+</html> 

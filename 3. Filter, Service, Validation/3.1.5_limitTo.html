@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-locale_ja-jp.js"></script>
+</head>
+<body ng-init="array=[1,2,3,4,5]">
+
+    <ul>
+        <li ng-repeat="num in array">
+            {{num}}
+        </li>
+    </ul>
+    <ul>
+        <li ng-repeat="num in array | limitTo: 3">
+            {{num}}
+        </li>
+    </ul>
+
+</body>
+</html> 

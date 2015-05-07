@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-locale_ja-jp.js"></script>
+</head>
+<body ng-controller="myController">
+
+    <input type="text" ng-model="filter.name">
+
+    <ul>
+        <li ng-repeat="obj in list | filter:filter">
+            {{obj.name}}
+        </li>
+    </ul>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('myController', function($scope) {
+                $scope.list = [
+                    {id: 1, name: 'abc'},
+                    {id: 2, name: 'def'},
+                    {id: 3, name: 'hij'}
+                ];
+            });
+    </script>
+
+</body>
+</html> 
