@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body ng-init="strValue='文字列';">
+
+	<input type="radio" ng-model="value" value="true"> true<br>
+	<input type="radio" ng-model="value" ng-value="strValue">strValue<br>
+
+	{{value}}
+
+</body>
+</html> 

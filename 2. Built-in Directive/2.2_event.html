@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body ng-controller="myController">
+
+    <div type="button" ng-click="countUp($event);">click</div>
+    <div type="button" ng-dblclick="countUp($event);">dblclick</div>
+    <div type="button" ng-mousedown="countUp($event);">mousedown</div>
+    <div type="button" ng-mouseup="countUp($event);">mouseup</div>
+    <div type="button" ng-mouseenter="countUp($event);">mouseenter</div>
+    <div type="button" ng-mouseover="countUp($event);">mouseover</div>
+    <div type="button" ng-mousemove="countUp($event);">mousemove</div>
+    <div type="button" ng-mouseleave="countUp($event);">mouseleave</div>
+    <input type="text" ng-focus="countUp($event);" placeholder="focus"><br>
+    <input type="text" ng-blur="countUp($event);" placeholder="blur"><br>
+    <input type="text" ng-keydown="countUp($event);" placeholder="keydown"><br>
+    <input type="text" ng-keypress="countUp($event);" placeholder="keypress"><br>
+    <input type="text" ng-keyup="countUp($event);" placeholder="keyup"><br>
+    <input type="text" ng-change="countUp($event);" ng-model="text" placeholder="change"><br>
+    <p>{{count}}</p>
+
+    <input type="checkbox" ng-checked="check">{{check}}<br>
+
+    <textarea ng-copy="copy($event);" ng-cut="cut($event);" ng-paste="paste($event);"></textarea>
+
+    <form ng-submit="submit($event);">
+        <input type="submit">
+    </form>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('myController', function($scope) {
+                $scope.text = '';
+                $scope.check = false;
+                $scope.count = 0;
+                $scope.countUp = function($event) {
+                    console.log(arguments);
+                    $scope.count = $scope.count + 1;
+                };
+                $scope.copy = function($event) {
+                    console.log($event);
+                    alert('copy');
+                };
+                $scope.cut = function($event) {
+                    console.log($event);
+                    alert('cut');
+                };
+                $scope.paste = function($event) {
+                    console.log($event);
+                    alert('paste');
+                };
+                $scope.submit = function($event) {
+                    console.log($event);
+                    alert('submit');
+                };
+            });
+    </script>
+
+</body>
+</html> 

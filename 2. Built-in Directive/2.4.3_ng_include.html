@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body ng-init="names=['a', 'b']">
+
+	<script type="text/ng-template" id="template.html">
+		name is {{name}}.
+	</script>
+
+	<div ng-repeat="name in names">
+		<div ng-include src="'template.html'"></div>
+	</div>
+
+</body>
+</html> 
