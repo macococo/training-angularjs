@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        {{ value | mod }}
+        {{ value | mod:4 }}
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .filter('mod', function() {
+                return function(value, m) {
+                    if (m === undefined) {
+                        m = 3;
+                    }
+                    return value % m;
+                };
+            })
+            .controller('Controller', ['$scope', function($scope) {
+                $scope.value = 10;
+            }])
+    </script>
+
+</body>
+</html>
