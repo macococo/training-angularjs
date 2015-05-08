@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .provider('MyService', function() {
+                this.name = 'MyService';
+                this.setName = function(name) {
+                    this.name = name;
+                };
+
+                this.$get = ['$timeout', function($timeout) {
+                    var name = this.name;
+                    return {
+                        async: function() {
+                            $timeout(function() {
+                                console.log(name);
+                            }, 1000);
+                        }
+                    }
+                }];
+            })
+            .config(['MyServiceProvider', function(MyServiceProvider) {
+                MyServiceProvider.setName('MyService2');
+            }])
+            .controller('Controller', ['MyService', function(MyService) {
+                MyService.async();
+            }]);
+    </script>
+
+</body>
+</html>

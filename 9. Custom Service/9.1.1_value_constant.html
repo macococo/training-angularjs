@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <script>
+        angular.module('myApp', [])
+            .value('MyValue', 'my value')
+            .constant('MyConstant', 'my constant')
+            .config(['MyConstant', function(MyConstant) {
+                console.log(MyConstant);
+            }]);
+    </script>
+
+</body>
+</html>

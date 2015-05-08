@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            // Service1 = return した オブジェクト
+            .factory('Service1', function() {
+                return {
+                    get: function() {
+                        return 'foo';
+                    }
+                };
+            })
+            // Service2 = function を new したインスタンス
+            .service('Service2', function() {
+                this.get = function() {
+                    return 'bar';
+                }
+            })
+            .controller('Controller', ['Service1', 'Service2', function(Service1, Service2) {
+                console.log(Service1.get());
+                console.log(Service2.get());
+            }]);
+    </script>
+
+</body>
+</html>
