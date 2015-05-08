@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-route.min.js"></script>
+    <script>
+        angular.module('myApp', ['ngRoute'])
+            .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+                $routeProvider
+                    .when('/', {
+                        controller: 'HomeController',
+                        templateUrl: '7.2.4/home.html'
+                    })
+                    .when('/about', {
+                        controller: 'AboutController',
+                        templateUrl: '7.2.4/about.html'
+                    });
+            }])
+            .controller('HomeController', ['$scope', function($scope) {
+                console.log('HomeController');
+            }])
+            .controller('AboutController', ['$scope', function($scope) {
+                console.log('AboutController');
+            }]);
+    </script>
+</head>
+<body ng-view>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        <input type="button" ng-click="promise();" value="promise">
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('Controller', ['$scope', '$q', function($scope, $q) {
+
+                var async = function() {
+                    var deferred = $q.defer();
+
+                    setTimeout(function() {
+                        deferred.resolve('success');
+                    }, 1000);
+
+                    return deferred.promise;
+                };
+
+                $scope.promise = function() {
+                    async().then(function(data) {
+                        console.log(data);
+                    }).finally(function() {
+                        console.log('finally');
+                    });
+                };
+            }])
+    </script>
+
+</body>
+</html>
