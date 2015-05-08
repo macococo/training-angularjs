@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="ParentController as parent">
+        <input type="text" ng-model="parent.value">
+        {{ parent.value }}
+
+        <div ng-controller="ChildController as child">
+            <input type="text" ng-model="child.value">
+            {{ child.value }}
+        </div>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('ParentController', function() {
+                this.value = 'parent value';
+            })
+            .controller('ChildController', function() {
+                this.value = 'child value';
+            });
+    </script>
+
+</body>
+</html> 

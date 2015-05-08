@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="UpperController">
+        upperMessage: {{ upperMessage }}
+
+        <div ng-controller="PublisherController">
+            <input type="text" ng-model="message">
+            <input type="button" ng-click="emit();" value="emit">
+            <input type="button" ng-click="broadcast();" value="broadcast">
+
+            <div ng-controller="LowerController1">
+                lower1Message: {{ lower1Message }}
+            </div>
+            <div ng-controller="LowerController2">
+                lower2Message: {{ lower2Message }}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('UpperController', ['$scope', function($scope) {
+                $scope.$on('MyEvent', function(event, data) {
+                    $scope.upperMessage = data;
+                })
+            }])
+            .controller('LowerController1', ['$scope', function($scope) {
+                $scope.$on('MyEvent', function(event, data) {
+                    $scope.lower1Message = data;
+                })
+            }])
+            .controller('LowerController2', ['$scope', function($scope) {
+                $scope.$on('MyEvent', function(event, data) {
+                    $scope.lower2Message = data;
+                })
+            }])
+            .controller('PublisherController', ['$scope', function($scope) {
+                $scope.message = 'message';
+                $scope.emit = function() {
+                    $scope.$emit('MyEvent', $scope.message);
+                };
+                $scope.broadcast = function() {
+                    $scope.$broadcast('MyEvent', $scope.message);
+                };
+            }]);
+    </script>
+
+</body>
+</html> 

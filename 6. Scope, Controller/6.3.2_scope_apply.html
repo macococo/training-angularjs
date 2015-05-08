@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        {{ value }}
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('Controller', ['$scope', function($scope) {
+                setTimeout(function() {
+                    $scope.$apply(function() {
+                        $scope.value = 1000;
+                    });
+                }, 1000);
+            }])
+    </script>
+
+</body>
+</html>

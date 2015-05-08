@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="ParentController">
+        <input type="text" ng-model="obj.value">
+
+        <div ng-controller="ChildController">
+            <input type="text" ng-model="obj.value">
+        </div>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('ParentController', ['$scope', function($scope) {
+                $scope.obj = {value: 'parent value'};
+            }])
+            .controller('ChildController', ['$scope', function($scope) {
+            }]);
+    </script>
+
+</body>
+</html> 

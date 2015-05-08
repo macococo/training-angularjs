@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        <input type="text" ng-model="value">
+        <input type="text" ng-model="obj.name">
+        <input type="text" ng-model="items" ng-list>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('Controller', ['$scope', function($scope) {
+                $scope.obj = {};
+
+                $scope.$watch('value', function(newValue, oldValue, scope) {
+                    console.log('watch: new = ' + newValue + ', old = ' + oldValue);
+                });
+                $scope.$watch(
+                    function() {
+                        return $scope.obj.name;
+                    },
+                    function(newValue, oldValue, scope) {
+                        console.log('watch: new = ' + newValue + ', old = ' + oldValue);
+                    }
+                );
+                $scope.$watchGroup(
+                    [
+                        function() {
+                            return $scope.value;
+                        },
+                        function() {
+                            return $scope.obj.name;
+                        }
+                    ],
+                    function(newValue, oldValue, scope) {
+                        console.log('watchGroup: new = ' + newValue + ', old = ' + oldValue);
+                    }
+                );
+                $scope.$watchCollection('items', function(newCollection, oldCollection, scope) {
+                    console.log('watchCollection: new = ' + newCollection + ', old = ' + oldCollection);
+                });
+            }])
+    </script>
+
+</body>
+</html> 
