@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+        <input type="text" ng-model="message">
+        <div my-directive></div>
+
+    <script>
+        angular.module('myApp', [])
+            .directive('myDirective', function() {
+                return {
+                    compile: function(tElement, tAttrs, tTransclude) {
+                        tElement.text('init');
+                        return function(scope, iElement, iAttrs, controller, iTransclude) {
+                            scope.$watch('message', function(newValue, oldValue, scope) {
+                                tElement.text(newValue);
+                            });
+                        }
+                    }
+                }
+            });
+    </script>
+
+</body>
+</html>

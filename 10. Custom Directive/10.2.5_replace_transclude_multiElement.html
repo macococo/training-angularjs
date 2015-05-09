@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        <div replace></div>
+        <div transclude>hoge</div>
+        <div multi-element-start></div>
+        <p>aaa</p>
+        <p>bbb</p>
+        <div multi-element-end></div>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .directive('replace', function() {
+                return {
+                    replace: true,
+                    template: '<pre>replace</pre>'
+                }
+            })
+            .directive('transclude', function() {
+                return {
+                    transclude: true,
+                    template: '<div>transclude <pre ng-transclude></pre></div>'
+                }
+            })
+            .directive('multiElement', function() {
+                return {
+                    multiElement: true,
+                    link: function(scope, iElement, iAttrs, controller, iTransclude) {
+                        angular.forEach(iElement, function(el) {
+                            angular.element(el).addClass('hoge');
+                        });
+                    }
+                }
+            })
+            .controller('Controller', ['$scope', function($scope) {
+            }]);
+    </script>
+
+</body>
+</html>

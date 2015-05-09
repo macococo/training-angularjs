@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        <div scope-false></div>
+        <div scope-true></div>
+        <div scope-isolated message="message" value="abc" func="func();"></div>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .directive('scopeFalse', function() {
+                return {
+                    scope: false,
+                    template: 'scopeFalse: {{ message }}, {{addMessage}}'
+                }
+            })
+            .directive('scopeTrue', function() {
+                return {
+                    scope: true,
+                    template: 'scopeTrue: {{ message }}, {{addMessage}}',
+                    compile: function() {
+                        return function(scope, iElement, iAttrs, controller, iTransclude) {
+                            scope.addMessage = 'foo';
+                        };
+                    }
+                }
+            })
+            .directive('scopeIsolated', function() {
+                return {
+                    scope: {
+                        message: '=message',
+                        value: '@value',
+                        func: '&func',
+                    },
+                    template: 'scopeIsolated: {{ message }}, {{value}} <input type="button" ng-click="func();">'
+                }
+            })
+            .controller('Controller', ['$scope', function($scope) {
+                $scope.message = 'hoge';
+                $scope.func = function() {
+                    alert('exec');
+                }
+            }]);
+    </script>
+
+</body>
+</html>
