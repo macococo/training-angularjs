@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        <div>messsage: {{ message }}</div>
+        <hr>
+        <div my-directive-compile></div>
+        <div my-directive-compile readonly></div>
+        <hr>
+        <div my-directive-link></div>
+        <hr>
+        <div my-directive-pre-post-link></div>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .directive('myDirectiveCompile', function() {
+                return {
+                    compile: function(tElement, tAttrs, tTransclude) {
+                        console.log('++ myDirectiveCompile ++ ');
+
+                        if (angular.isDefined(tAttrs.readonly)) {
+                            tElement.append('{{ message }}');
+                        } else {
+                            tElement.append('<input type="text" ng-model="message">');
+                        }
+                    }
+                }
+            })
+            .directive('myDirectiveLink', function() {
+                return {
+                    link: function(scope, iElement, iAttrs, controller, iTransclude) {
+                        console.log('++ myDirectiveLink ++ ');
+
+                        scope.$watch('message', function(newValue, oldValue, scope) {
+                            console.log('++ myDirectiveLink watch ++ ');
+                            iElement.text(newValue);
+                        })
+                    }
+                }
+            })
+            .directive('myDirectivePrePostLink', function() {
+                return {
+                    link: {
+
+                        pre: function() {
+                            console.log('++ myDirectivePrePostLink pre ++ ');
+                        },
+
+                        post: function(scope, iElement, iAttrs, controller, iTransclude) {
+                            console.log('++ myDirectivePrePostLink post ++ ');
+
+                            scope.$watch('message', function(newValue, oldValue, scope) {
+                                console.log('++ myDirectivePrePostLink watch ++ ');
+                                iElement.text(newValue);
+                            })
+                        }
+                    }
+                }
+            })
+            .controller('Controller', ['$scope', function($scope) {
+                $scope.message = 'hoge';
+            }]);
+    </script>
+
+</body>
+</html>

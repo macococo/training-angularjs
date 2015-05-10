@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        <input type="text" ng-model="rate">
+        <rating ng-model="rate" max="10"></rating>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .directive('rating', ['$timeout', function($timeout) {
+                return {
+                    scope: {
+                        max: '='
+                    },
+                    require: 'ngModel',
+                    restrict: 'E',
+                    link: function(scope, iElement, iAttrs, controller, iTransclude) {
+                        var updateRate = function(rate) {
+                            angular.forEach(iElement.children(), function(el) {
+                                angular.element(el).off('click');
+                            });
+                            iElement.empty();
+
+                            for (var i = 0; i < scope.max; i++) {
+                                var span = angular.element('<span></span>');
+                                span.text(i < rate ? '★' : '☆');
+
+                                (function(span, rate) {
+                                    span.on('click', function() {
+                                        scope.$apply(function() {
+                                            controller.$setViewValue(rate);
+                                            updateRate(rate); 
+                                        });
+                                    })
+                                })(span, i + 1);
+
+                                iElement.append(span);
+                            }
+                        };
+
+                        controller.$render = function() {
+                            updateRate(controller.$viewModel);
+                        }
+                        controller.$formatters.push(function(rate) {
+                            if (rate < 0) {
+                                return 0;
+                            } else if (rate > scope.max) {
+                                return scope.max;
+                            } else {
+                                return rate;
+                            }
+                        });
+                    }
+                }
+            }])
+            .controller('Controller', ['$scope', function($scope) {
+                $scope.rate = 5;
+            }]);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        <div ng-repeat="item in items">
+            <notification timeout="5000" enable="item.enableMessage">
+                {{item.message}} ({{item.time | date:'HH:mm:ss'}})
+            </notification>
+        </div>
+
+        <input type="text" ng-model="message">
+        <input type="button" ng-click="addMessage(message);" value="add">
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .directive('notification', ['$timeout', function($timeout) {
+                return {
+                    scope: {
+                        enable: '=',
+                        timeout: '='
+                    },
+                    restrict: 'E',
+                    transclude: true,
+                    replace: true,
+                    template:
+                        '<div class="notification" ng-show="enable">' +
+                            '<a href="" ng-click="close();">閉じる</a>' +
+                            '<div ng-transclude></div>' + 
+                        '</div>',
+                    link: function(scope, iElement, iAttrs, controller, iTransclude) {
+                        scope.close = function() {
+                            scope.enable = false;
+                        };
+
+                        var promise;
+                        scope.$watch('enable', function(newValue, oldValue, scope) {
+                            if (newValue) {
+                                promise = $timeout(function() {
+                                    scope.$apply(function() {
+                                        scope.close();
+                                    });
+                                }, scope.timeout, false);
+                            } else {
+                                if (promise) {
+                                    $timeout.cancel(promise);
+                                    promise = null;
+                                }
+                            }
+                        });
+                    }
+                }
+            }])
+            .controller('Controller', ['$scope', function($scope) {
+                $scope.items = [{message: 'test', time: new Date(), enableMessage: true}];
+                $scope.addMessage = function(message) {
+                    $scope.items.push({message: message, time: new Date(), enableMessage: true}); 
+                }
+            }]);
+    </script>
+
+</body>
+</html>

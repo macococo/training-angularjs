@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        <div combo-box selected-item="status" all-items="statuses"></div>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .directive('comboBox', function() {
+                return {
+                    scope: {
+                        selectedItem: '=',
+                        allItems: '='
+                    },
+                    restrict: 'EA',
+                    template:
+                        '<div class="combobox">' +
+                        '<input type="text" ng-model="selectedItem" ng-focus="focus();">' +
+                        '<ul ng-show="isFocus">' + 
+                            '<li ng-repeat="item in allItems" ng-click="click($event, item)">' +
+                                '{{ item }}' +
+                            '</li>' +
+                        '</ul>' +
+                        '</div>',
+                    link: function(scope, iElement, iAttrs, controller, iTransclude) {
+                        scope.isFocus = false;
+
+                        scope.focus = function() {
+                            scope.isFocus = true;
+                        };
+
+                        scope.click = function($event, item) {
+                            $event.preventDefault();
+                            $event.stopPropagation();
+
+                            scope.selectedItem = item;
+                            scope.isFocus = false;
+                        };
+                    }
+                }
+            })
+            .controller('Controller', ['$scope', function($scope) {
+                $scope.status = 'active';
+                $scope.statuses = ['open', 'active', 'closed'];
+            }]);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        <div my-directive ng-model="name"></div>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .directive('myDirective', function() {
+                return {
+                    template:
+                        '{{ctrl.message}}<br>'
+                        + '<input type="button" ng-click="show();" value="show">',
+                    controller : ['$scope', '$element', '$attrs', '$transclude', function($scope, $element, $attrs, $transclude) {
+                        this.message = 'hoge';
+                    }],
+                    controllerAs: 'ctrl',
+                    require: 'ngModel',
+                    link: function(scope, iElement, iAttrs, controller, iTransclude) {
+                        scope.show = function() {
+                            console.log(iAttrs.ngModel);
+                        }
+                    }
+                }
+            })
+            .controller('Controller', ['$scope', function($scope) {
+                $scope.name = 'foo';
+            }]);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="Controller">
+        <div my-directive></div>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .directive('myDirective', ['$parse', '$interpolate', function($parse, $interpolate) {
+                return {
+                    template: '',
+                    link: function(scope, iElement, iAttrs, controller, iTransclude) {
+                        scope.x = 123;
+
+                        var getter = $parse('x');
+                        console.log(getter(scope));
+
+                        var setter = getter.assign;
+                        setter(scope, 456);
+                        console.log(getter(scope));
+
+                        var exp = $interpolate('result = {{x + 1}}');
+                        console.log(exp(scope));
+                    }
+                }
+            }])
+            .controller('Controller', ['$scope', function($scope) {
+            }]);
+    </script>
+
+</body>
+</html>
