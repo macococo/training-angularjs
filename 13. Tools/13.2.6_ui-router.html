@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp" ng-strict-di>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-ui-router.min.js"></script>
+</head>
+<body>
+
+    <div>
+        <a ui-sref="home">Home</a>
+        <a ui-sref="about">About</a>
+        <a ui-sref="emp">Emp</a>
+    </div>
+    <div ui-view></div>
+
+    <script>
+        angular.module('myApp', ['ui.router'])
+            .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+                // to home
+                $urlRouterProvider.when('', '/');
+
+                $stateProvider
+                    .state("home", {
+                        "url": "^/",
+                        "templateUrl": "13.2.6/home.html",
+                        "controller": "HomeController"
+                    })
+                    .state("about", {
+                        "url": "^/about",
+                        "templateUrl": "13.2.6/about.html",
+                        "controller": "AboutController",
+                        "abstract": true
+                    })
+                    .state("emp", {
+                        "url": "^/emp",
+                        "templateUrl": "13.2.6/emp_list.html",
+                        "controller": "EmpListController"
+                    })
+                    .state("emp.detail", {
+                        "url": "^/emp/:empId",
+                        "templateUrl": "13.2.6/emp_detail.html",
+                        "controller": "EmpDetailController"
+                    });
+            }])
+            .controller('HomeController', ['$scope', function($scope) {
+            }])
+            .controller('AboutController', ['$scope', function($scope) {
+            }])
+            .controller('EmpListController', ['$scope', function($scope) {
+            }])
+            .controller('EmpDetailController', ['$scope', function($scope) {
+            }]);
+    </script>
+
+</body>
+</html>
